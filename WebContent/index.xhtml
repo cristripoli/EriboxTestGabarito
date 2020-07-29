@@ -1,0 +1,76 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:ui="http://java.sun.com/jsf/facelets">
+<h:head>Eribox Test</h:head>
+<h:body>
+
+
+	<p:panel id="instrictionsPanel">
+
+		<h1>INSTRUÇÕES</h1>
+		<ul>
+			<li>Criar um CRUD de 'Produto' usando as classes, páginas e configurações já existentes na aquitetura do projeto.</li>
+			<li>Caso você sinta necessidade novas classes, configurações e páginas podem ser adicionadas, porém as já existentes devem ser utilizadas.</li>
+			<li>Validações, coesão, acoplamento, estética e qualidade do código serão levados em consideração na avaliação.</li>
+		</ul>
+
+	</p:panel>
+	<p:separator/>
+	<p:panel id="productPanel">
+	
+		<h:form id="productForm">
+
+			<p:growl id="messages" sticky="true" />
+
+			<p:dataTable id="productListTable" var="product"
+				value="#{productController.products}" editingRow="false">
+
+				<p:column headerText="Id">
+					<h:outputText id="productId" value="#{product.id}" />
+				</p:column>
+
+				<p:column headerText="Name">
+					<h:outputText id="productName" value="#{product.name}" />
+				</p:column>
+
+				<p:column headerText="Price">
+					<h:outputText id="productPrice" value="#{product.price}" />
+				</p:column>
+
+				<p:column headerText="Code">
+					<h:outputText id="productCode" value="#{product.code}" />
+				</p:column>
+
+				<p:column headerText="Ações">
+					<p:commandButton id="delete" update="productListTable"
+						action="#{productController.delete}" icon="ui-icon-trash">
+						<f:setPropertyActionListener target="#{productController.product}"
+							value="#{product}" />
+					</p:commandButton>
+
+					<p:commandButton id="edit"
+						oncomplete="PF('productCreateDialogVar').show();"
+						update="productCreateDialog" icon="ui-icon-pencil">
+						<f:setPropertyActionListener target="#{productController.product}"
+							value="#{product}" />
+					</p:commandButton>
+				</p:column>
+
+			</p:dataTable>
+
+			<br />
+
+			<p:commandButton value="Add Product" icon="ui-icon-closethick"
+				actionListener="#{productController.createProduct}"
+				oncomplete="PF('productCreateDialogVar').show();"
+				styleClass="ui-priority-primary">
+			</p:commandButton>
+		</h:form>
+	</p:panel>
+</h:body>
+<ui:include src="/pages/productCreateDialog.xhtml" />
+</html>

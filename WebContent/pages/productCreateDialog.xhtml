@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui">
+
+	<p:dialog id="productCreateDialog"
+		widgetVar="productCreateDialogVar"
+		modal="true"
+		header="Create New Product">
+		
+		<f:facet name="header">
+	       <h:outputText id="headerText" value="New Product Information"/>
+	    </f:facet>
+		<h:form id="productCreateForm" prependId="false">
+			<p:panel id="productCreationPanel" styleClass="no-border">
+				<p:panelGrid columns="2" styleClass="no-border">
+	
+		    		<h:outputText value="Product Name:" for="name" styleClass="FontBold"/>
+					<h:inputText id="name" value="#{productController.product.name}" />
+					
+					<h:outputText value="Code:" for="code" styleClass="FontBold"/>
+					<h:inputText id="code" value="#{productController.product.code}" />
+									
+					<h:outputText value="Price:" for="price" styleClass="FontBold"/>
+					<h:inputText id="price" value="#{productController.product.price}" />
+					
+				</p:panelGrid>	
+				
+				<div class="EmptyBox10"/>
+				<p:separator />
+				
+				<div class="EmptyBox10"/>
+			
+				<h:panelGrid columns="2" id="panelButtonsAddForm">
+				
+			  		<p:commandButton 
+			  			id="saveButton"
+			  			value="Add"  
+			  			styleClass="RedButton"
+						icon="fa fa-arrow-left"
+						action="#{productController.save()}"
+						update="@form :productForm:productListTable"
+						oncomplete="PF('productCreateDialogVar').hide()">
+					</p:commandButton>  
+					  
+				</h:panelGrid>	
+				
+			</p:panel>
+		</h:form>
+	</p:dialog>	
+</ui:composition>
+
